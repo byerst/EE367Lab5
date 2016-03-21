@@ -1,4 +1,5 @@
 /* 
+ * Created this file
  * switch.h 
  */
 
@@ -6,18 +7,15 @@
 
 typedef struct { /* State of host */
    int   physid;              /* physical id */
-   char  maindir[NAME_LENGTH]; /* main directory name */
-   int   maindirvalid;        /* indicates if the main directory is empty */
-   int   netaddr;             /* host's network address */
-   int   nbraddr;             /* network address of neighbor */
-   packetBuffer sendPacketBuff;  /* send packet buffer */
-   packetBuffer rcvPacketBuff;   
-   managerLink manLink;       /* Connection to the manager */
+   int inputSize;
+   int outputSize;
    LinkInfo linkin;           /* Incoming communication link */
    LinkInfo linkout;          /* Outgoing communication link */
-} hostState;
+   Table table;
+   Queue packetQueue;
+} switchState;
 
-void hostMain(hostState * hstate);
+void switchMain(switchState * sstate);
 
-void hostInit(hostState * hstate, int physid);
+void switchInit(switchState * sstate, int physid);
 
