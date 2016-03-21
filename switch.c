@@ -30,9 +30,9 @@
  * - hostInitRcvPacketBuff, which initializes the receive packet buffer
  * - hostInitSendPacketBuff, which initializes the send packet buffer
  */
-void hostInitState(hostState * hstate, int physid); 
-void hostInitRcvPacketBuff(packetBuffer * packetbuff);
-void hostInitSendPacketBuff(packetBuffer * packetbuff);
+void switchInitState(hostState * hstate, int physid); 
+void switchInitRcvPacketBuff(packetBuffer * packetbuff);
+void switchInitSendPacketBuff(packetBuffer * packetbuff);
 
 /*
  * hostMain is the main loop for the host. It has an infinite loop.
@@ -57,7 +57,7 @@ void hostInitSendPacketBuff(packetBuffer * packetbuff);
  * - hostGetHostState to get the host's state.  The command message
  *      should be "GetHostState".  
  */
-int  hostCommandReceive(managerLink * manLink, char command[]);
+int  switchCommandReceive(managerLink * manLink, char command[]);
 
 void hostSetNetAddr(hostState * hstate, int netaddr, char replymsg[]);
 void hostSetMainDir(hostState * hstate, char filename[], char replymsg[]);
