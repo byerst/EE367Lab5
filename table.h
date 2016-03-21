@@ -14,4 +14,8 @@ typedef struct {
 
 void initTable(Table * table);
 void insert(Table * table, int valid, char destaddr, int out);
+int findEntryByDest(Table * table, char destAddr);
+/* Finds the entry by its network addr and returns its index*/
 void displayTable(Table * table);
+void updateEntry(Table * table, TableData * new_entry, char destAddr);
+/* Updates whether or not the table */
