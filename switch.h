@@ -9,10 +9,10 @@ typedef struct { /* State of host */
    int   physid;              /* physical id */
    int inputSize;
    int outputSize;
-   LinkInfo linkin;           /* Incoming communication link */
-   LinkInfo linkout;          /* Outgoing communication link */
+   LinkInfo* linkin;           /* Incoming communication link */
+   LinkInfo* linkout;          /* Outgoing communication link */
    Table table;
-   Queue packetQueue;
+   Queue packetQ;
 } switchState;
 
 void switchMain(switchState * sstate);
