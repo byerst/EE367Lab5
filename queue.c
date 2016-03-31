@@ -7,6 +7,13 @@ void InitQueue(Queue* queue) {
 	queue->size = 0;
 }
 
+void printQueue(Queue* queue) {
+	int i;
+	for (i = 0; i < queue->size; i++) {
+		printf("%d\n", queue->packetArray[i]);
+	}
+}
+ 
 void PushQueue(packetBuffer packet, Queue* queue) {
 	if(queue->size >= MAX_QUEUE){
 		printf("Queue is full\n");
@@ -17,12 +24,12 @@ void PushQueue(packetBuffer packet, Queue* queue) {
 	queue->size++;
 }
 
-packetbuffer PopQueue(Queue* queue) {
+packetBuffer PopQueue(Queue* queue) {
 	if(queue->size==0){
 		printf("Queue is empty\n");
 		return;
 	}
-	packetbuffer temp;
+	packetBuffer temp;
 	temp = queue->packetArray[queue->head];
 	queue->head++;
 	queue->size--;

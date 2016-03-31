@@ -2,7 +2,7 @@
 
 #define MAX_QUEUE 100000
 
-typedef struc {
+typedef struct {
 	packetBuffer packetArray[MAX_QUEUE];
 	int head;
 	int tail;
