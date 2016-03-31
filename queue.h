@@ -12,3 +12,4 @@ typedef struct {
 void InitQueue(Queue* queue);
 void PushQueue(packetBuffer packet, Queue* queue);
 packetBuffer PopQueue(Queue* queue);
+int isEmpty(Queue* queue);

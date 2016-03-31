@@ -36,4 +36,13 @@ packetBuffer PopQueue(Queue* queue) {
 	return temp;
 }
 
-
+int isEmpty(Queue* queue) {
+	if(queue->size==0){
+		printf("Queue is empty\n");
+		return 1;
+	}
+	else {
+		printf("Queue is not empty\n");
+		return 0;
+	}
+}
