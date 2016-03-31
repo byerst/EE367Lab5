@@ -18,4 +18,8 @@ int findEntryByDest(Table * table, char destAddr);
 /* Finds the entry by its network addr and returns its index*/
 void displayTable(Table * table);
 void updateEntry(Table * table, TableData * new_entry, char destAddr);
+void addEntry(Table * table, TableData * new_entry);
+int getOutlink(Table * table, char destAddr);
+void updateTable(Table *table, int Valid, char dest, int outlink);
 /* Updates whether or not the table */
+
