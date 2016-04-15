@@ -1,3 +1,6 @@
+#ifndef TABLE_H
+#define TABLE_H
+
 /* Header for table data type  */
 #define MAXSIZE 100
 
@@ -23,3 +26,4 @@ int getOutlink(Table * table, char destAddr);
 void updateTable(Table *table, int Valid, char dest, int outlink);
 /* Updates whether or not the table */
 
+#endif

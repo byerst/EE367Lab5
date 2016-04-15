@@ -13,6 +13,9 @@
 #include "man.h"
 #include "host.h"
 #include "net.h"
+#include "switch.h"
+#include "queue.h"
+#include "table.h"
 
 #define EMPTY_ADDR  0xffff  /* Indicates the empty address */
                              /* It also indicates that the broadcast address */
@@ -22,7 +25,10 @@
 
 void main()
 {
+
+printf("Entered Main\n");
 hostState hstate;             /* The host's state */
+switchState sState;
 linkArrayType linkArray;
 manLinkArrayType manLinkArray;
 
@@ -85,6 +91,27 @@ for (physid = 0; physid < NUMHOSTS; physid++) {
       hostMain(&hstate);
    }  
 }
+/*
+for(physid = NUMHOSTS; physid < NUMHOSTS + NUMSWITCHES; physid++){
+	pid = fork();
+	
+	if(pid == -1){
+		printf("ERROR: Failed to fork\n");
+		return;
+	}
+	else if(pid == 0){
+		//initialize switch
+		switchInit(&sState, physid);
+		//close manager links
+		netCloseAllManLinks(&manLinkArray);
+		//initialize connections to switch
+		netSwitchLinks(&linkArray, &sState, physid);
+		//close connections not connected to switch
+		netCloseSwitchOtherLinks(&linkArray, physid);
+
+		switchMain(&sState);
+	}
+}*/
 
 /* Manager */
 

@@ -16,6 +16,8 @@
 #include "man.h"
 #include "host.h"
 #include "switch.h"
+#include "queue.h"
+#include "table.h"
 
 #define EMPTY_ADDR  0xffff  /* Indicates that the empty address */
                              /* It also indicates that the broadcast address */
@@ -38,7 +40,7 @@ while(1) {
 
 	/* Check if there is something to receive from incoming links */
 	for (i = 0; i < sState->inputSize; i++){
-		packetSize = linkReceive(&(sState->linkin[i]), tBuff, &size);
+		packetSize = linkReceive(&(sState->linkin[i]), tBuff);
 		
 		// If there is a packet
 		if(packetSize > 0){
@@ -55,14 +57,14 @@ while(1) {
 		tBuff[0] = PopQueue(&(sState->packetQ));
 		
 		if(tBuff[0].srcaddr != -1){
-			outLink = getOutLink(&(sState->table), tBuff[0].dstaddr);
+			outLink = getOutlink(&(sState->table), tBuff[0].dstaddr);
 
 			// If link in table
 			if(outLink != -1)
 				linkSend(&(sState->linkout[outLink]), &tBuff[0]);
 			else{
 				// we have srcaddr link
-				inLink = getOutLink(&(sState->table), tBuff[0].srcaddr);
+				inLink = getOutlink(&(sState->table), tBuff[0].srcaddr);
 				
 				// send it to all but incoming link
 				for(i = 0; i < sState->outputSize; i++){

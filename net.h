@@ -1,3 +1,7 @@
+#include "switch.h"
+
+#ifndef NET_H
+#define NET_H
 
 /* Create nonblocking connections from the manager to all hosts */
 void netCreateConnections(manLinkArrayType * manLinkArray); 
@@ -27,9 +31,20 @@ int netHostInLink(linkArrayType * linkArray, int hostid);
 /* Close links not used by the host */
 void netClearHostOtherLinks(linkArrayType * linkArray, int hostid);
 
+void netCloseHostOtherLinks(linkArrayType * linkArray, int hostid);
+
 /* Close all links */
 void netCloseLinks(linkArrayType * linkArray); 
 
 /* Close the host's side of a connection between a host and manager */
 void netCloseManConnections(manLinkArrayType * manLinkArray);
 
+void netCloseAllManLinks(manLinkArrayType* manLinkArray);
+
+
+/* Switch connection functions */
+void netSwitchLinks(linkArrayType* linkArray, switchState* sState, int hostId);
+
+void netCloseSwitchOtherLinks(linkArrayType* linkArray, int hostId);
+
+#endif

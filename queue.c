@@ -1,6 +1,13 @@
 #include <stdio.h>
 #include "queue.h"
 
+const packetBuffer ERROR_PACKET = {
+	.srcaddr = -1,
+	.dstaddr = -1,
+	.length = -1,
+	.valid = -1
+};
+
 void InitQueue(Queue* queue) {
 	queue->head = 0;
 	queue->tail = 0;
@@ -27,7 +34,7 @@ void PushQueue(packetBuffer packet, Queue* queue) {
 packetBuffer PopQueue(Queue* queue) {
 	if(queue->size==0){
 		printf("Queue is empty\n");
-		return;
+		return ERROR_PACKET;
 	}
 	packetBuffer temp;
 	temp = queue->packetArray[queue->head];

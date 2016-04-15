@@ -39,6 +39,7 @@
 #include "link.h"
 #include "man.h"
 #include "host.h"
+#include "net.h"
 
 #define EMPTY_ADDR  0xffff  /* Indicates that the empty address */
                              /* It also indicates that the broadcast address */
@@ -212,4 +213,45 @@ for (i=0; i<manLinkArray->numlinks; i++) {
 }
 }
 
+void netCloseAllManLinks(manLinkArrayType* manLinkArray){
+	int i;
+	
+	// Close manager links
+	for(i = 0; i < manLinkArray->numlinks; i++){
+		close(manLinkArray->link[i].toHost[0]);
+		close(manLinkArray->link[i].toHost[1]);
+		close(manLinkArray->link[i].fromHost[0]);
+		close(manLinkArray->link[i].fromHost[1]);
+	}
+}
+//working here
+void netSwitchLinks(linkArrayType* linkArray, switchState* sState, int physid){
+	int i;
+
+	for(i = 0; i < linkArray->numlinks; i++){
+		if(linkArray->link[i].uniPipeInfo.physIdSrc == physid){
+			sState->linkout[sState->outputSize] = linkArray->link[i];
+			sState->inputSize++;
+		}
+		
+		if(linkArray->link[i].uniPipeInfo.physIdDst == physid){
+			sState->linkin[sState->inputSize] = linkArray->link[i];
+			sState->inputSize++;
+		}
+	}
+}
+
+void netCloseSwitchOtherLinks(linkArrayType* linkArray, int hostid){
+	int i;
+
+	for(i = 0; i < linkArray->numlinks; i++){
+		if(linkArray->link[i].uniPipeInfo.physIdSrc != hostid){
+			close(linkArray->link[i].uniPipeInfo.fd[PIPEWRITE]);
+		}
+
+		if(linkArray->link[i].uniPipeInfo.physIdDst != hostid){
+			close(linkArray->link[i].uniPipeInfo.fd[PIPEWRITE]);
+		}
+	}
+}
 
