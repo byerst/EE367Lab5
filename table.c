@@ -29,7 +29,7 @@ int findEntryByDest(Table * table, char destaddr)
 }
 void displayTable(Table * table)
 {	int i;
-	for(i=0; i<=table->size; i++)
+	for(i=0; i<=table->size-1; i++)
 	{	printf("Entry #%d\t", table->size);
 		printf("Valid: %d\t", table->data[i].valid);
 		printf("Destination: %c\t", table->data[i].destAddr);
@@ -45,6 +45,7 @@ void updateEntry(Table * table, TableData * new_entry, char destAddr)
 	table->data[target].destAddr = new_entry->destAddr;
 	table->data[target].outLink = new_entry->outLink;
 	}
+	
 }
 
 void addEntry(Table * table, TableData * new_entry)
@@ -64,11 +65,13 @@ int getOutlink(Table * table, char destAddr)
 void updateTable(Table * table, int Valid, char dest, int outlink)
 {
 	int target = findEntryByDest(table, dest);
+	//printf("Target: %d\n", target);
 	TableData new_entry;
 	new_entry.valid = Valid;
 	new_entry.destAddr = dest;
 	new_entry.outLink = outlink;
-	if (target != -1) { //if target not found, add entry
+	
+	if (target == -1) { //if target not found, add entry
 		addEntry(table, &new_entry);
 	}
 	else updateEntry(table, &new_entry, dest);
